@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+}
+
+/*mobile first*/
+
+header {
+    display: grid;
+    height: 40vw;
+    background-color: orange;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+header h1 {
+    font-size: 2em;
+    grid-column: 2;
+    grid-row: 2;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+.data_courses {
+    display: grid;
+    grid-gap: 10px;
+}
+
+.data_courses div:nth-child(2n) {
+    background: rgb(255, 0, 0);
+}
+
+/*DO NOT DISPLAY ON MOBILE*/
+
+.data_place_of_origin {
+    display: none;
+}
+
+.data_description_long {
+    display: none;
+}
+
+.data_kategori {
+    display: none;
+}
+
+.data_id {
+    display: none;
+}
+
+
+@media screen and (min-width:480px) {
+    section {
+        margin: 0 10vw;
+    }
+
+    .data_courses {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
