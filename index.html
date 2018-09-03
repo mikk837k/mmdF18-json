@@ -12,8 +12,16 @@
     <main>
         <header>
             <h1>Bistro BABUSHKHA</h1>
+            <nav>
+                <button class="menu-item" data-kategori="alle">Alle</button>
+                <button class="menu-item" data-kategori="forretter">Foretter</button>
+                <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
+                <button class="menu-item" data-kategori="desserter">Desserter</button>
+                <button class="menu-item" data-kategori="sideorders">Sideorders</button>
+                <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
+            </nav>
         </header>
-        <nav></nav>
+
         <section>
             <div class="data_courses"></div>
             <template class="data_template">
@@ -35,6 +43,9 @@
         document.addEventListener("DOMContentLoaded", hentJson);
 
         let retter;
+        let dest = document.querySelector(".data_courses");
+        let kategoriFilter = "alle";
+
 
         async function hentJson() {
             let myJsonData = await fetch("json/menu.json");
@@ -43,24 +54,40 @@
             visRetter();
         }
 
+        document.querySelectorAll(".menu-item").forEach(knap => {
+            knap.addEventListener("click", filtrering)
+        });
+
+        function filtrering() {
+            dest.textContent = "";
+            kategoriFilter = this.getAttribute("data-kategori");
+
+            visRetter();
+        }
+
+
+
         function visRetter() {
-            let modtager = document.querySelector(".data_courses");
             let temp = document.querySelector(".data_template");
 
             //løb menu igennem og lav en klon
             retter.forEach(ret => {
-                let klon = temp.cloneNode(true).content;
-                klon.querySelector(".data_id").textContent = ret.id;
-                klon.querySelector(".data_kategori").textContent = "Kategori: " + ret.kategori;
-                klon.querySelector("img").src = "imgs/small/" + ret.billede + "-sm.jpg";
-                klon.querySelector("h2").textContent = ret.navn;
-                klon.querySelector(".data_desription_short").textContent = ret.kortbeskrivelse;
-                klon.querySelector(".data_description_long").textContent = ret.langbeskrivelse;
-                klon.querySelector(".data_place_of_origin").textContent = "Oprindelsesregion: " + ret.oprindelsesregion;
-                klon.querySelector(".data_price").textContent = "Pris: " + ret.pris;
-                modtager.appendChild(klon);
+                if (ret.kategori == kategoriFilter || kategoriFilter == "alle") {
+                    let klon = temp.cloneNode(true).content;
+                    klon.querySelector(".data_id").textContent = ret.id;
+                    klon.querySelector(".data_kategori").textContent = "Kategori: " + ret.kategori;
+                    klon.querySelector("img").src = "imgs/small/" + ret.billede + "-sm.jpg";
+                    klon.querySelector("h2").textContent = ret.navn;
+                    klon.querySelector(".data_desription_short").textContent = ret.kortbeskrivelse;
+                    klon.querySelector(".data_description_long").textContent = ret.langbeskrivelse;
+                    klon.querySelector(".data_place_of_origin").textContent = "Oprindelsesregion: " + ret.oprindelsesregion;
+                    klon.querySelector(".data_price").textContent = "Pris: " + ret.pris;
+                    dest.appendChild(klon);
+                }
             })
         }
+        //--------------------*******---------------------
+
     </script>
 </body>
 
