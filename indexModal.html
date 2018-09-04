@@ -5,10 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleModal.css">
 </head>
 
 <body>
+    <div id="modal">
+        <button>Close</button>
+        <div id="modal-content">
+            <h2 class="modal-navn"></h2>
+            <p class="data_description_long"></p>
+            <p class="data_place_of_origin"></p>
+            <img class="modal-billede" src="" alt="">
+        </div>
+    </div>
     <header>
         <h1>Bistro BABUSHKHA</h1>
         <nav>
@@ -20,6 +29,7 @@
             <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
         </nav>
     </header>
+
     <section>
         <div class="data_courses">
         </div>
@@ -29,8 +39,6 @@
                 <h2></h2>
                 <p class="data_desription_short"></p>
                 <p class="data_price"></p>
-                <p class="data_description_long"></p>
-                <p class="data_place_of_origin"></p>
                 <p class="data_kategori"></p>
                 <p class="data_id"></p>
             </div>
@@ -43,6 +51,7 @@
         let retter;
         let dest = document.querySelector(".data_courses");
         let kategoriFilter = "alle";
+        let modal = document.querySelector("#modal");
 
 
         async function hentJson() {
@@ -75,16 +84,30 @@
                     klon.querySelector(".data_id").textContent = ret.id;
                     klon.querySelector(".data_kategori").textContent = "Kategori: " + ret.kategori;
                     klon.querySelector("img").src = "imgs/small/" + ret.billede + "-sm.jpg";
+                    klon.querySelector("img").addEventListener("click", () => {
+                        visModal(ret);
+                    });
                     klon.querySelector("h2").textContent = ret.navn;
                     klon.querySelector(".data_desription_short").textContent = ret.kortbeskrivelse;
-                    klon.querySelector(".data_description_long").textContent = ret.langbeskrivelse;
-                    klon.querySelector(".data_place_of_origin").textContent = "Oprindelsesregion: " + ret.oprindelsesregion;
                     klon.querySelector(".data_price").textContent = "Pris: " + ret.pris;
                     dest.appendChild(klon);
                 }
             })
         }
 
+        function visModal(retterne) {
+            modal.classList.add("show");
+            modal.querySelector(".modal-navn").textContent = retterne.navn;
+            modal.querySelector(".modal-billede").src = "imgs/small/" + retterne.billede + "-sm.jpg";
+            modal.querySelector(".modal-billede").alt = "Foto af " + retterne.navn;
+            modal.querySelector(".data_description_long").textContent = retterne.langbeskrivelse;
+            modal.querySelector(".data_place_of_origin").textContent = "Oprindelsesregion: " + retterne.oprindelsesregion;
+            modal.querySelector("button").addEventListener("click", hideModal);
+        }
+
+        function hideModal() {
+            modal.classList.remove("show");
+        }
         //--------------------*******---------------------
     </script>
 </body>

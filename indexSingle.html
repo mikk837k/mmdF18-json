@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleSingle.css">
 </head>
 
 <body>
@@ -75,6 +75,9 @@
                     klon.querySelector(".data_id").textContent = ret.id;
                     klon.querySelector(".data_kategori").textContent = "Kategori: " + ret.kategori;
                     klon.querySelector("img").src = "imgs/small/" + ret.billede + "-sm.jpg";
+                    klon.querySelector("img").addEventListener("click", () => {
+                        window.location.href = "single.html?id=" + ret.id;
+                    });
                     klon.querySelector("h2").textContent = ret.navn;
                     klon.querySelector(".data_desription_short").textContent = ret.kortbeskrivelse;
                     klon.querySelector(".data_description_long").textContent = ret.langbeskrivelse;
@@ -84,8 +87,6 @@
                 }
             })
         }
-
-        //--------------------*******---------------------
     </script>
 </body>
 
