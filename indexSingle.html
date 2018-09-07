@@ -38,13 +38,16 @@
     </section>
     <footer></footer>
     <script>
+        //eventListner afventer information om at hentJason funktionen er kørt
         document.addEventListener("DOMContentLoaded", hentJson);
 
+
+        //Mine variabler
         let retter;
         let dest = document.querySelector(".data_courses");
         let kategoriFilter = "alle";
 
-
+        //en asynkron funktion, dvs. at de
         async function hentJson() {
             let myJsonData = await fetch("json/menu.json");
             retter = await myJsonData.json();
@@ -87,6 +90,7 @@
                 }
             })
         }
+
     </script>
 </body>
 
